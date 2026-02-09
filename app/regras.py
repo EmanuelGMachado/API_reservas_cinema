@@ -1,6 +1,5 @@
 from banco import sessoes
 
-
 def listar_sessoes():  #retorna uma lista com as informações de cada sessão
 
     sessoes_info = []
@@ -42,7 +41,7 @@ def contar_assentos_vagos_da_sessao(sessao):  # contador simples de assentos dis
 
 def listar_assentos_vagos(id_sessao: int):  # Retorna quais assentos estão disponíveis para a sessão com id selecionado
 
-    sessao = buscar_sessao_por_id(id_sessao)     # Chava a função para selecionar a sessao escolhida
+    sessao = buscar_sessao_por_id(id_sessao)     # Chama a função para selecionar a sessao escolhida
 
     if sessao is None:
         return None
@@ -55,20 +54,20 @@ def listar_assentos_vagos(id_sessao: int):  # Retorna quais assentos estão disp
 
     return assentos_vagos
 
-def reservar_assento(id_sessao, id_assento):    # Função para reservar o assento escolhido da sessao selecionada 
+def reservar_assento(id_sessao: int, id_assento: str):    # Função para reservar o assento escolhido da sessao selecionada 
     
     sessao = buscar_sessao_por_id(id_sessao)
 
     if sessao is None:
-        return False
+        return "sessao_inexistente"
 
     for assento in sessao["assentos"]:
-        if assento["id"] == id_assento:
+        if assento["id"].strip().upper() == id_assento.strip().upper():
             if assento["disponivel"]:
                 assento["disponivel"] = False
-                return True
+                return "sucesso"
             else:
-                return False
+                return "assento_ocupado"
 
-    return False
+    return "assento_inexistente"
     
