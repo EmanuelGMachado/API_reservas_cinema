@@ -1,6 +1,8 @@
+import asyncio
 from fastapi import APIRouter, HTTPException
 import regras
 
+trava_reservas = asyncio.Lock()
 router = APIRouter()
 
 @router.get("/sessoes")
@@ -17,9 +19,10 @@ def get_assentos(id_sessao: int):
     return assentos
 
 @router.post("/reservar")
-def post_reserva(id_sessao: int, id_assento: str):
+async def post_reserva(id_sessao: int, id_assento: str):
 
-    resultado = regras.reservar_assento(id_sessao, id_assento)
+    async with trava_reservas:
+        resultado = regras.reservar_assento(id_sessao, id_assento)
 
     if resultado == "sucesso":
         return {"status": "reserva confirmada"}
