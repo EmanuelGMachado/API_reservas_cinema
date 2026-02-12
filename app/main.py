@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from rotas import router as rotas_cinema
+from app.rotas import router as rotas_cinema
 
 app = FastAPI(
     title="API de reservas de cinema",

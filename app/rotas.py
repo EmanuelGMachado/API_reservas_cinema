@@ -1,6 +1,6 @@
 import asyncio
 from fastapi import APIRouter, HTTPException
-import regras
+from app import regras
 
 trava_reservas = asyncio.Lock()
 router = APIRouter()

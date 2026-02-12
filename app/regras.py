@@ -1,4 +1,4 @@
-from banco import sessoes
+from app.banco import sessoes
 
 def listar_sessoes():  #retorna uma lista com as informações de cada sessão
 
